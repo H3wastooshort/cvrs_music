@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/cvrs_music.css">
+
+<title>CVRS MUSIC!!</title>
+</head>
+
+<body>
+
+<div id="mp_header_placeholder"><!-- just moving down the content --></div>
+
+<div id="mp_header">
+<canvas id="mp_audio_vis" width="200" height="75"></canvas>
+<audio id="mp_audio" controls crossorigin="anonymous"></audio>
+<div class="mp_extra_controls"><button id="mp_prev">⏮</button> <button id="mp_next">⏭</button> <button id="mp_hd">SD</button> <button id="mp_performance">FPS</button> <span id="mp_fps">??FPS</span></div>
+<noscript><style>.mp_extra_controls{display:none;}</style></noscript>
+<p>Now playing: <a id="music_credits" target="_blank" href=""></a></p>
+</div>
+
+<div id="mp_gallery">
+<h1><marquee>CVRS MUSIC!!!</marquee></h1>
+<hr>
+</div>
+
+<p class="credits">by <a href="https://h3.neocities.org/">H3</a>, for cvrsed</p>
+
+<canvas id="mp_audio_vis_2" width="720" height="128"></canvas>
+
+<!-- these must go at the end -->
+<script src="/musics_list.js"></script>
+<script src="/cvrs_music.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+body {
+  color: white;
+  background-color: black;
+  text-align: center;
+  font-family: Comic Sans MS, sans-serif;
+}
+
+/* header */
+
+#mp_header, #mp_audio_vis {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+#mp_header {
+  background-color: rgba(0,0,0,0.75);
+  border: 1px solid white;
+}
+
+#mp_header, #mp_header_placeholder, #mp_audio_vis {
+  min-height: 128px;
+  width: calc(100% - 2px);
+}
+
+#mp_header button {
+  background-color: rgba(0,0,0,0.75);
+  border: solid 2px white;
+  color: white;
+}
+
+#mp_audio_vis_2 {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 128px;
+  width: 100%;
+  z-index: -1;
+}
+
+#music_credits {
+  color: cyan;
+  font-size: 1.25em;
+}
+
+/* album list */
+.crazy_album {
+  background-position: center;
+  background-size: cover;
+  
+  width: max-content;
+  padding: 1px;
+  margin: 5px;
+  
+  text-align: justify;
+  
+  border: 2px solid white;
+}
+
+.crazy_tracklist {
+  list-style-type: "😸";
+}
+
+.crazy_tracklist button{
+  font-size: 1.5em;
+  background-color: rgba(0,0,0,0.9);
+  color: white;
+  border: 1px solid white;
+  margin: 2px;
+}
