@@ -58,8 +58,8 @@ var crazy_albums = [
 			},
 			{
 				'track_name': '1NF1N1TY',
-				'track_m4a': '',
-				'track_flac': ''
+				'track_m4a': 'https://files.catbox.moe/n2l391.mp3',
+				'track_flac': 'https://files.catbox.moe/r3p79v.flac'
 			},
 			{
 				'track_name': 'XOXOXO',
@@ -68,7 +68,7 @@ var crazy_albums = [
 				'track_flac': ''
 			},
 			{
-				'track_name': '',
+				'track_name': 'deepweb',
 				'track_url': 'https://cvrsed.bandcamp.com/track/deepweb',
 				'track_m4a': '',
 				'track_flac': ''
@@ -82,37 +82,37 @@ var crazy_albums = [
 		'album_url': 'https://cvrsed.bandcamp.com/album/oxymoronic-txtfiles',
 		'album_tracks': [
 			{
-				'track_name': '',
+				'track_name': '0V3RDR1V3',
 				'track_m4a': '',
 				'track_flac': ''
 			},
 			{
-				'track_name': '',
+				'track_name': 'C10UD99',
 				'track_m4a': '',
 				'track_flac': ''
 			},
 			{
-				'track_name': '',
+				'track_name': 'G3TT1NGB3TTR',
 				'track_m4a': '',
 				'track_flac': ''
 			},
 			{
-				'track_name': '',
+				'track_name': 'S7R337',
 				'track_m4a': '',
 				'track_flac': ''
 			},
 			{
-				'track_name': '',
+				'track_name': 'P3R0X1D3',
 				'track_m4a': '',
 				'track_flac': ''
 			},
 			{
-				'track_name': '',
+				'track_name': 'L3AN4REAL2',
 				'track_m4a': '',
 				'track_flac': ''
 			},
 			{
-				'track_name': '',
+				'track_name': 'TYBG',
 				'track_m4a': '',
 				'track_flac': ''
 			}

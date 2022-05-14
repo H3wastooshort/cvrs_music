@@ -60,17 +60,16 @@ function play_track_index() {
 	music_credits.innerText = (crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_artist'] || crazy_albums[mp_album_index]['album_artist']) + ' - ' + crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_name'];
 	music_credits.href = crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_url'] || crazy_albums[mp_album_index]['album_url'];
 	
-	let audio_url = crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['m4a_url'];
+	let audio_url = crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_m4a'];
 	
-	if (mp_use_hd_audio && typeof crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['flac_url'] == 'string') {
-		audio_url = crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['flac_url'];
+	if (mp_use_hd_audio && typeof crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_flac'] == 'string') {
+		audio_url = crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_flac'];
 	}
 	
 	mp_audio.src=audio_url;
 	mp_audio.load();
 	mp_audio.play();
 }
-
 
 mp_audio.onended = function(){change_track(true);};
 
@@ -87,13 +86,13 @@ var mp_vis_ctx = mp_audio_vis.getContext("2d");
 mp_vis_ctx.strokeStyle = 'whitesmoke';
 
 const audioContext = new AudioContext();
-const audiosource_bgm = audioContext.createMediaElementSource(mp_audio);
-var analyser_bgm = audioContext.createAnalyser();
-analyser_bgm.fftSize = Math.pow(2, Math.floor(Math.log(mp_audio_vis_2.clientWidth)/Math.log(2) + 1)) * 2; //round up to the nearest power of 2
-var mp_buf = new Uint8Array(analyser_bgm.frequencyBinCount);
-var mp_freq = new Uint8Array(analyser_bgm.frequencyBinCount);
-audiosource_bgm.connect(analyser_bgm);
-analyser_bgm.connect(audioContext.destination);
+const audiosource_music = audioContext.createMediaElementSource(mp_audio);
+var analyser_music = audioContext.createAnalyser();
+analyser_music.fftSize = Math.pow(2, Math.floor(Math.log(mp_audio_vis_2.clientWidth)/Math.log(2) + 1)) * 2; //round up to the nearest power of 2
+var mp_buf = new Uint8Array(analyser_music.frequencyBinCount);
+var mp_freq = new Uint8Array(analyser_music.frequencyBinCount);
+audiosource_music.connect(analyser_music);
+analyser_music.connect(audioContext.destination);
 
 mp_audio_vis_2.width =mp_audio_vis_2.clientWidth;
 mp_audio_vis_2.height = 128;
@@ -122,7 +121,7 @@ function vis_audio() {
 	mp_vis_ctx.lineWidth = 2;
 	
 	
-	analyser_bgm.getByteTimeDomainData(mp_buf);
+	analyser_music.getByteTimeDomainData(mp_buf);
 	for (let x = 0; x < mp_audio_vis.width; x++) {
 		let y = mp_buf[x] * (mp_audio_vis.height / 255);
 		
@@ -142,7 +141,7 @@ function vis_audio() {
 	//mp_vis_ctx_2.strokeStyle = 'whitesmoke';
 	mp_vis_ctx_2.lineWidth = 2;
 	
-	analyser_bgm.getByteFrequencyData(mp_freq);
+	analyser_music.getByteFrequencyData(mp_freq);
 	for (let x = 0; x < mp_audio_vis_2.width; x++) {
 		let y = (mp_buf[x] / 2);
 		
@@ -173,6 +172,29 @@ setInterval(function(){
 	mp_vis_frames = 0;
 	mp_fps.innerText = mp_vis_fps + "FPS";
 }, 1000);
+
+
+/* butterchurn */
+var butter_presets = butterchurnPresetsExtra.getPresets();
+var butter_canvas = document.getElementById('butter_canvas');
+const butterviz = butterchurn.default.createVisualizer(audioContext, butter_canvas, {
+  width: window.innerWidth,
+  height: window.innerHeight,
+  pixelRatio: window.devicePixelRatio || 1,
+  textureRatio: 1
+});
+butterviz.connectAudio(audiosource_music);
+function buttervizLoop() {
+	butterviz.render();
+	requestAnimationFrame(buttervizLoop);
+}
+buttervizLoop();
+setInterval(function () {
+	
+},30000)
+window.addEventListener('resize', e => {
+	butterviz.setRendererSize(window.innerWidth, window.innerHeight);
+});
 
 
 /* controls */
