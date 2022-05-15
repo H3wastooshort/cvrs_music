@@ -59,6 +59,7 @@ body {
   font-family: monospace;
 }
 
+
 /* album list */
 .crazy_album {
   background-position: center;
@@ -99,4 +100,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* other stuff */
+
+hr {
+  color: transparent;
+  border: 1px solid white;
+}
+
+a {
+  color: cyan;
 }
