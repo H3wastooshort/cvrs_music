@@ -194,7 +194,7 @@ setInterval(function(){
 
 
 /* butterchurn */
-var butter_presets = butterchurnPresetsExtra.getPresets();
+var butter_presets = Object.entries(butterchurnPresetsExtra.getPresets());
 var butter_canvas = document.getElementById('butter_canvas');
 var butter_div = document.getElementById('butter_div');
 butter_canvas.width = butter_div.clientWidth;
@@ -221,12 +221,12 @@ function buttervizLoop() {
 }
 buttervizLoop();
 setInterval(function () {
-	
+	butterviz.loadPreset(butter_presets[Math.floor(Math.random() * butter_presets.length - 0.1)][1], 5);
 },30000)
 window.addEventListener('resize', e => {
 	butter_canvas.width = butter_div.clientWidth;
 	butter_canvas.height = butter_div.clientHeight;
-	butterviz.setRendererSize(window.innerWidth, window.innerHeight);
+	butterviz.setRendererSize(butter_div.clientWidth, butter_div.clientHeight);
 });
 
 
