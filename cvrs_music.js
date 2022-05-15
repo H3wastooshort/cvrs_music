@@ -212,10 +212,12 @@ function buttervizLoop() {
 	buttervis_cycle++; //adding before testing is mitigated by the <=
 	if(buttervis_cycle <= mp_vis_div) {
 		/* divide framerate to save CPU. most LCDs dont display full framerate well anyways */
-		requestAnimationFrame(vis_audio);
+		requestAnimationFrame(buttervizLoop);
 		return;
 	}
+	buttervis_cycle = 0;
 	butterviz_frames++;
+	
 	butterviz.render();
 	requestAnimationFrame(buttervizLoop);
 }
