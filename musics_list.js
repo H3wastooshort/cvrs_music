@@ -37,8 +37,8 @@ var crazy_albums = [
 			},
 			{
 				'track_name': 'P1NK',
-				'track_m4a': '',
-				'track_flac': ''
+				'track_m4a': 'https://files.catbox.moe/uamcoe.mp3',
+				'track_flac': 'https://files.catbox.moe/s6jt8v.flac'
 			},
 			{
 				'track_name': 'W1LD',

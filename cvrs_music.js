@@ -256,12 +256,12 @@ mp_hd.onclick = function(){
 	mp_hd.innerText = mp_use_hd_audio ? 'HD' : 'SD';
 	
 	let mp_pos_on_sw = mp_audio.currentTime;
-	if (typeof crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['hd_url'] == 'string') {
+	if (typeof crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_flac'] == 'string') {
 		if (mp_use_hd_audio) {
-				mp_audio_src.src=mp_audio.src=crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['hd_url'];
+				mp_audio_src.src=mp_audio.src=crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_flac'];
 		}
 		else {
-				mp_audio_src.src=mp_audio.src=crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['audio_url'];
+				mp_audio_src.src=mp_audio.src=crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_m4a'];
 		}
 		
 		mp_audio.load();
@@ -269,4 +269,4 @@ mp_hd.onclick = function(){
 	}
 	
 }
-mp_audio.onloadeddata = function() {mp_hd.style.borderColor = (typeof crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['hd_url'] == 'string' && mp_use_hd_audio) ? '#0FF' : '#FFF';};
+mp_audio.onloadeddata = function() {mp_hd.style.borderColor = (typeof crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_flac'] == 'string' && mp_use_hd_audio) ? '#0FF' : '#FFF';};
