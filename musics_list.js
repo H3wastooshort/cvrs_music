@@ -9,18 +9,18 @@ var crazy_albums = [
 		'album_tracks': [
 			{
 				'track_name': 'nevafeltthisway',
-				'track_m4a': '',
-				'track_flac': ''
+				'track_m4a': 'https://files.catbox.moe/v8bsj1.m4a',
+				'track_flac': 'https://files.catbox.moe/xioeb3.flac'
 			},
 			{
 				'track_name': 'thxuevryday',
-				'track_m4a': '',
-				'track_flac': ''
+				'track_m4a': 'https://files.catbox.moe/h6407j.m4a',
+				'track_flac': 'https://files.catbox.moe/38baed.flac'
 			},
 			{
 				'track_name': 'luv2shy',
-				'track_m4a': '',
-				'track_flac': ''
+				'track_m4a': 'https://files.catbox.moe/mf2nc1.m4a',
+				'track_flac': 'https://files.catbox.moe/0qbzir.flac'
 			}
 		]
 	},

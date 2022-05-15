@@ -55,11 +55,11 @@ function select_track(album,track) {
 function change_track(d) {
 	if (d) {
 		mp_track_index++;
-		if (mp_track_index >= crazy_albums[mp_album_index].length) mp_track_index = 0;
+		if (mp_track_index >= crazy_albums[mp_album_index].album_tracks.length) mp_track_index = 0;
 	}
 	else {
 		mp_track_index--;
-		if (mp_track_index < 0) mp_track_index = crazy_albums[mp_album_index].length-1;
+		if (mp_track_index < 0) mp_track_index = crazy_albums[mp_album_index].album_tracks.length-1;
 	}
 	
 	play_track_index();
