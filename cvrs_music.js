@@ -39,7 +39,6 @@ var mp_audio = document.getElementById('mp_audio');
 
 /* playlist logic */
 var music_credits = document.getElementById('music_credits');
-var mp_audio_src = document.getElementById('mp_audio_src');
 
 var mp_use_hd_audio = false;
 var mp_track_index = 0;
@@ -258,10 +257,10 @@ mp_hd.onclick = function(){
 	let mp_pos_on_sw = mp_audio.currentTime;
 	if (typeof crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_flac'] == 'string') {
 		if (mp_use_hd_audio) {
-				mp_audio_src.src=mp_audio.src=crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_flac'];
+				mp_audio.src=crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_flac'];
 		}
 		else {
-				mp_audio_src.src=mp_audio.src=crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_m4a'];
+				mp_audio.src=crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_m4a'];
 		}
 		
 		mp_audio.load();
