@@ -69,10 +69,10 @@ function play_track_index() {
 	music_credits.innerText = (crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_artist'] || crazy_albums[mp_album_index]['album_artist']) + ' - ' + crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_name'];
 	music_credits.href = crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_url'] || crazy_albums[mp_album_index]['album_url'];
 	
-	let audio_url = crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_m4a'];
+	let audio_url = crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_sd'];
 	
-	if (mp_use_hd_audio && typeof crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_flac'] == 'string') {
-		audio_url = crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_flac'];
+	if (mp_use_hd_audio && typeof crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_hd'] == 'string') {
+		audio_url = crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_hd'];
 	}
 	
 	//yes i know this is inefficien, no i dont care atm
@@ -256,12 +256,12 @@ mp_hd.onclick = function(){
 	mp_hd.innerText = mp_use_hd_audio ? 'HD' : 'SD';
 	
 	let mp_pos_on_sw = mp_audio.currentTime;
-	if (typeof crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_flac'] == 'string') {
+	if (typeof crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_hd'] == 'string') {
 		if (mp_use_hd_audio) {
-				mp_audio.src=crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_flac'];
+				mp_audio.src=crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_hd'];
 		}
 		else {
-				mp_audio.src=crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_m4a'];
+				mp_audio.src=crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_sd'];
 		}
 		
 		mp_audio.load();
@@ -269,4 +269,4 @@ mp_hd.onclick = function(){
 	}
 	
 }
-mp_audio.onloadeddata = function() {mp_hd.style.borderColor = (typeof crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_flac'] == 'string' && mp_use_hd_audio) ? '#0FF' : '#FFF';};
+mp_audio.onloadeddata = function() {mp_hd.style.borderColor = (typeof crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_hd'] == 'string' && mp_use_hd_audio) ? '#0FF' : '#FFF';};
