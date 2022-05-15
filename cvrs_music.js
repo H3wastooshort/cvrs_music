@@ -12,10 +12,11 @@ crazy_albums.forEach((album, album_idx) => {
 	album_div.className = 'crazy_album';
 	album_div.style.backgroundImage = 'url(' + album.album_cover + ')';
 	
-	let album_info_div = document.createElement('p');
-	album_info_div.className = 'crazy_album_info';
-	album_info_div.innerHtml = `<a href="${album.album_url}">${album.album_artist} - ${album.album_name}</a>`;
-	album_div.appendChild(album_info_div);
+	let album_info_a = document.createElement('a');
+	album_info_a.className = 'crazy_album_info';
+	album_info_a.innerText = `${album.album_artist} - ${album.album_name}`;
+	album_info_a.href = album.album_url;
+	album_div.appendChild(album_info_a);
 	
 	let tracklist_div = document.createElement('ul');
 	tracklist_div.className = 'crazy_tracklist';
