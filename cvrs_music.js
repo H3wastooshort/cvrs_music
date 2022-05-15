@@ -1,3 +1,10 @@
+/* fix webaudio */
+const USER_ACTIVATION_EVENTS = ['auxclick','click','contextmenu','dblclick','keydown','keyup','mousedown','mouseup','touchend'];
+
+USER_ACTIVATION_EVENTS.forEach(eventName => {
+  window.addEventListener(eventName, e=> {audioContext.resume();}, { capture: true, passive: true });
+});
+
 /* album gallery */
 var mp_gallery = document.getElementById('mp_gallery');
 crazy_albums.forEach((album, album_idx) => {
@@ -18,6 +25,8 @@ crazy_albums.forEach((album, album_idx) => {
 		
 		track_btn.addEventListener('click', e => {select_track(album_idx,track_idx);});
 		track_btn.innerText = (track.track_artist || album.album_artist) + ' - ' + track.track_name;
+		track_btn.id = `a${album_idx}t${track_idx}`;
+		track_btn.className = 'crazy_button';
 		track_div.appendChild(track_btn);
 		
 		tracklist_div.appendChild(track_div);
@@ -65,6 +74,10 @@ function play_track_index() {
 	if (mp_use_hd_audio && typeof crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_flac'] == 'string') {
 		audio_url = crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_flac'];
 	}
+	
+	//yes i know this is inefficien, no i dont care atm
+	Array.prototype.forEach.call(document.getElementsByClassName('crazy_button'),btn=>{btn.style.borderColor = 'white'}); 
+	document.getElementById(`a${mp_album_index}t${mp_track_index}`).style.borderColor = 'cyan';
 	
 	mp_audio.src=audio_url;
 	mp_audio.load();
@@ -166,25 +179,43 @@ mp_audio.onplaying = function () {mp_vis_ctx.strokeStyle = 'whitesmoke'; mp_vis_
 mp_audio.onerror = function () {mp_vis_ctx.strokeStyle = 'red';mp_vis_ctx_2.strokeStyle = 'red';}
 
 //measure fps
+var butterviz_frames = 0;
+var butterviz_fps = 0;
 var mp_performance = document.getElementById('mp_fps');
 setInterval(function(){
 	mp_vis_fps = mp_vis_frames;
 	mp_vis_frames = 0;
-	mp_fps.innerText = mp_vis_fps + "FPS";
+	mp_fps.innerText = 'Lines: ' + mp_vis_fps + "FPS";
+	
+	butterviz_fps = butterviz_frames;
+	butterviz_frames = 0;
+	mp_fps.innerText += '  Butterchurn: ' + butterviz_fps + "FPS";
 }, 1000);
 
 
 /* butterchurn */
 var butter_presets = butterchurnPresetsExtra.getPresets();
 var butter_canvas = document.getElementById('butter_canvas');
+var butter_div = document.getElementById('butter_div');
+butter_canvas.width = butter_div.clientWidth;
+butter_canvas.height = butter_div.clientHeight;
 const butterviz = butterchurn.default.createVisualizer(audioContext, butter_canvas, {
-  width: window.innerWidth,
-  height: window.innerHeight,
+  width: butter_div.clientWidth,
+  height: butter_div.clientHeight,
   pixelRatio: window.devicePixelRatio || 1,
   textureRatio: 1
 });
 butterviz.connectAudio(audiosource_music);
+var buttervis_cycle = 0;
 function buttervizLoop() {
+	//fps limit
+	buttervis_cycle++; //adding before testing is mitigated by the <=
+	if(buttervis_cycle <= mp_vis_div) {
+		/* divide framerate to save CPU. most LCDs dont display full framerate well anyways */
+		requestAnimationFrame(vis_audio);
+		return;
+	}
+	butterviz_frames++;
 	butterviz.render();
 	requestAnimationFrame(buttervizLoop);
 }
@@ -193,6 +224,8 @@ setInterval(function () {
 	
 },30000)
 window.addEventListener('resize', e => {
+	butter_canvas.width = butter_div.clientWidth;
+	butter_canvas.height = butter_div.clientHeight;
 	butterviz.setRendererSize(window.innerWidth, window.innerHeight);
 });
 
