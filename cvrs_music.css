@@ -64,6 +64,7 @@ body {
 .crazy_album {
   background-position: center;
   background-size: cover;
+  background-color: rgba(0,0,0,0.75);
   
   width: max-content;
   padding: 1px;

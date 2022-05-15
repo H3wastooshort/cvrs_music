@@ -223,9 +223,12 @@ function buttervizLoop() {
 	requestAnimationFrame(buttervizLoop);
 }
 buttervizLoop();
-setInterval(function () {
+
+function switch_butter_preset() {
 	butterviz.loadPreset(butter_presets[Math.floor(Math.random() * butter_presets.length - 0.1)][1], 5);
-},30000)
+}
+setInterval(switch_butter_preset,30000);
+
 window.addEventListener('resize', e => {
 	butter_canvas.width = butter_div.clientWidth;
 	butter_canvas.height = butter_div.clientHeight;
@@ -272,4 +275,7 @@ mp_hd.onclick = function(){
 	}
 	
 }
-mp_audio.onloadeddata = function() {mp_hd.style.borderColor = (typeof crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_hd'] == 'string' && mp_use_hd_audio) ? '#0FF' : '#FFF';};
+mp_audio.onloadeddata = function() {
+	mp_hd.style.borderColor = (typeof crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_hd'] == 'string' && mp_use_hd_audio) ? '#0FF' : '#FFF';
+	switch_butter_preset();
+};

@@ -10,7 +10,7 @@ var crazy_albums = [
 		'album_artist': 'cvrsed',
 		'album_name': ' yokubari​-​cats!',
 		'album_url': 'https://cvrsed.bandcamp.com/album/yokubari-cats',
-		'album_cover': 'https://f4.bcbits.com/img/a0879793575_16.jpg',
+		'album_cover': 'https://files.catbox.moe/q02syv.jpg',
 		'album_tracks': [
 			{
 				'track_name': 'nevafeltthisway',
@@ -33,7 +33,7 @@ var crazy_albums = [
 		'album_artist': 'cvrsed',
 		'album_name': 'possibilities limitless',
 		'album_url': 'https://cvrsed.bandcamp.com/album/possibilities-limitless',
-		'album_cover': 'https://f4.bcbits.com/img/a1830718248_16.jpg',
+		'album_cover': 'https://files.catbox.moe/kbguan.jpg',
 		'album_tracks': [
 			{
 				'track_name': '3LGY3M',
@@ -83,7 +83,7 @@ var crazy_albums = [
 	{
 		'album_artist': 'cvrsed',
 		'album_name': 'oxymoronic.txtfiles',
-		'album_cover': 'https://f4.bcbits.com/img/a3560193762_10.jpg',
+		'album_cover': 'https://files.catbox.moe/98oz6l.jpg',
 		'album_url': 'https://cvrsed.bandcamp.com/album/oxymoronic-txtfiles',
 		'album_tracks': [
 			{
