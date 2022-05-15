@@ -279,3 +279,7 @@ mp_audio.onloadeddata = function() {
 	mp_hd.style.borderColor = (typeof crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_hd'] == 'string' && mp_use_hd_audio) ? '#0FF' : '#FFF';
 	switch_butter_preset();
 };
+
+/* media session controls */
+navigator.mediaSession.setActionHandler('nexttrack', function() {change_track(true)});
+navigator.mediaSession.setActionHandler('previoustrack', function() {change_track(false)});
