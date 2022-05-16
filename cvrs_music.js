@@ -157,13 +157,13 @@ function vis_audio() {
 	
 	analyser_music.getByteFrequencyData(mp_freq);
 	for (let x = 0; x < mp_audio_vis_2.width; x++) {
-		let y = (mp_buf[x] / 2);
+		let y = ((mp_freq[x] / 2) * -1) + mp_audio_vis_2.height;
 		
 		if (x == 1) {
-				mp_vis_ctx.moveTo(x,y);
+				mp_vis_ctx_2.moveTo(x,y);
 		}
 		else {
-				mp_vis_ctx.lineTo(x,y);
+				mp_vis_ctx_2.lineTo(x,y);
 		}
 	}
 	
