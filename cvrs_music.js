@@ -292,3 +292,20 @@ navigator.mediaSession.setActionHandler('nexttrack', function() {change_track(tr
 navigator.mediaSession.setActionHandler('previoustrack', function() {change_track(false)});
 navigator.mediaSession.setActionHandler('play', function() {mp_audio.play();});
 navigator.mediaSession.setActionHandler('pause', function() {mp_audio.pause();});
+navigator.mediaSession.setActionHandler('seekto', function(e) {
+	mp_audio.currentTime = e.seekTime;
+});
+
+mp_audio.addEventListener('play', e => {
+	navigator.mediaSession.playbackState = "playing";
+});
+mp_audio.addEventListener('pause', e => {
+	navigator.mediaSession.playbackState = "paused";
+});
+mp_audio.addEventListener('timeupdate', e => {
+	navigator.mediaSession.setPositionState({
+		duration: mp_audio.duration,
+		playbackRate: mp_audio.playbackRate,
+		position: mp_audio.currentTime
+	});
+});
