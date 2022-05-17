@@ -1,10 +1,3 @@
-/* fix webaudio */
-const USER_ACTIVATION_EVENTS = ['auxclick','click','contextmenu','dblclick','keydown','keyup','mousedown','mouseup','touchend'];
-
-USER_ACTIVATION_EVENTS.forEach(eventName => {
-  window.addEventListener(eventName, e=> {audioContext.resume();}, { capture: true, passive: true });
-});
-
 /* album gallery */
 var mp_gallery = document.getElementById('mp_gallery');
 crazy_albums.forEach((album, album_idx) => {
@@ -66,8 +59,13 @@ function change_track(d) {
 	play_track_index();
 }
 
-function play_track_index() {	
-	music_credits.innerText = (crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_artist'] || crazy_albums[mp_album_index]['album_artist']) + ' - ' + crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_name'];
+function play_track_index() {
+	audioContext.resume(); //just fucking resume avery time. cant hurt
+	
+	let track_artist = crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_artist'] || crazy_albums[mp_album_index]['album_artist'];
+	let track_name = crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_name'];
+	
+	music_credits.innerText = track_artist + ' - ' + track_name;
 	music_credits.href = crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_url'] || crazy_albums[mp_album_index]['album_url'];
 	
 	let audio_url = crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_sd'];
@@ -83,6 +81,15 @@ function play_track_index() {
 	mp_audio.src=audio_url;
 	mp_audio.load();
 	mp_audio.play();
+	
+	if ("mediaSession" in navigator){
+		navigator.mediaSession.metadata = new MediaMetadata({
+			title: track_name,
+			artist: track_artist,
+			album: crazy_albums[mp_album_index]['album_name'],
+			artwork: [{src: crazy_albums[mp_album_index]['album_cover']}]
+		});
+	}
 }
 
 mp_audio.onended = function(){change_track(true);};
@@ -150,7 +157,7 @@ function vis_audio() {
 	mp_vis_ctx.stroke();
 	
 	
-	mp_vis_ctx_2.clearRect(0,0,mp_audio_vis.width,mp_audio_vis.height);
+	mp_vis_ctx_2.clearRect(0,0,mp_audio_vis_2.width,mp_audio_vis_2.height);
 	mp_vis_ctx_2.beginPath();
 	//mp_vis_ctx_2.strokeStyle = 'whitesmoke';
 	mp_vis_ctx_2.lineWidth = 2;
@@ -283,3 +290,5 @@ mp_audio.onloadeddata = function() {
 /* media session controls */
 navigator.mediaSession.setActionHandler('nexttrack', function() {change_track(true)});
 navigator.mediaSession.setActionHandler('previoustrack', function() {change_track(false)});
+navigator.mediaSession.setActionHandler('play', function() {mp_audio.play();});
+navigator.mediaSession.setActionHandler('pause', function() {mp_audio.pause();});
