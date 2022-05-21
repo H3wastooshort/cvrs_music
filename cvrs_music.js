@@ -143,8 +143,18 @@ function vis_audio() {
 	
 	
 	analyser_music.getByteTimeDomainData(mp_buf);
+	
+	let trig = 0;
+	let highs = 0;
+	for (let s = 0; s < mp_buf.length - mp_audio_vis.width - 10; s++) { //try to sync to waveform
+		if (mp_buf[s] > highs) {
+			highs = mp_buf[s];
+			trig = s;
+		}
+	}
+	
 	for (let x = 0; x < mp_audio_vis.width; x++) {
-		let y = mp_buf[x] * (mp_audio_vis.height / 255);
+		let y = mp_buf[x+trig] * (mp_audio_vis.height / 255);
 		
 		if (x == 1) {
 				mp_vis_ctx.moveTo(x,y);
