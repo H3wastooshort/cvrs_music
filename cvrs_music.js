@@ -258,6 +258,7 @@ var mp_performance = document.getElementById('mp_performance');
 var mp_next = document.getElementById('mp_next');
 var mp_prev = document.getElementById('mp_prev');
 var mp_hd = document.getElementById('mp_hd');
+var mp_fullscreen = document.getElementById('mp_fullscreen');
 
 function mp_cycle_fps() {
 	mp_vis_div += 1;
@@ -296,6 +297,36 @@ mp_audio.onloadeddata = function() {
 	mp_hd.style.borderColor = (typeof crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_hd'] == 'string' && mp_use_hd_audio) ? '#0FF' : '#FFF';
 	switch_butter_preset();
 };
+
+
+var mp_clutter = document.getElementById('mp_clutter');
+var mp_fullscreen_state = 0;
+mp_fullscreen.onclick = function () {
+	if (!document.fullscreenEnabled) {
+		mp_fullscreen.style.borderColor = '#F00';
+		return;
+	}
+	switch (mp_fullscreen_state) {
+		default:
+			mp_fullscreen_state = 0;
+		case 0:
+			document.body.requestFullscreen();
+			mp_clutter.style.display = 'initial';
+			mp_fullscreen.style.borderColor = '#0FF';
+			break;
+		case 1:
+			document.body.requestFullscreen();
+			mp_clutter.style.display = 'none';
+			mp_fullscreen.style.borderColor = 'orange';
+			break;
+		case 2:
+			document.exitFullscreen();
+			mp_clutter.style.display = 'initial';
+			mp_fullscreen.style.borderColor = '#FFF';
+			break;
+	}
+	mp_fullscreen_state++;
+}
 
 /* media session controls */
 navigator.mediaSession.setActionHandler('nexttrack', function() {change_track(true)});
