@@ -110,6 +110,7 @@ const audioContext = new AudioContext();
 const audiosource_music = audioContext.createMediaElementSource(mp_audio);
 var analyser_music = audioContext.createAnalyser();
 analyser_music.fftSize = Math.pow(2, Math.floor(Math.log(mp_audio_vis_2.clientWidth)/Math.log(2) + 1)) * 2; //round up to the nearest power of 2
+analyser_music.smoothingTimeConstant = 0.1; //make it react fast
 var mp_buf = new Uint8Array(analyser_music.frequencyBinCount);
 var mp_freq = new Uint8Array(analyser_music.frequencyBinCount);
 audiosource_music.connect(analyser_music);
