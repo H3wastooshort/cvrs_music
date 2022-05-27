@@ -121,7 +121,6 @@ mp_audio_vis_2.height = 128;
 var mp_vis_ctx_2 = mp_audio_vis_2.getContext("2d");
 mp_vis_ctx_2.strokeStyle = 'whitesmoke';
 
-
 var mp_vis_fps = 0;
 var mp_vis_frames = 0;
 var mp_vis_cycle = 0;
@@ -196,6 +195,23 @@ vis_audio();
 mp_audio.onwaiting = mp_audio.onstalled = function () {mp_vis_ctx.strokeStyle = '#333'; mp_vis_ctx_2.strokeStyle = '#333';}
 mp_audio.onplaying = function () {mp_vis_ctx.strokeStyle = 'whitesmoke'; mp_vis_ctx_2.strokeStyle = 'whitesmoke';}
 mp_audio.onerror = function () {mp_vis_ctx.strokeStyle = 'red';mp_vis_ctx_2.strokeStyle = 'red';}
+
+window.addEventListener('resize', e => { //runs this shitfuck whenever the resolution changes
+	let old_stroke_style = mp_vis_ctx.strokeStyle;
+	let old_stroke_style_2 = mp_vis_ctx_2.strokeStyle;
+	
+	mp_audio_vis.width = mp_header.clientWidth;
+	mp_audio_vis.height = mp_header.clientHeight;
+	mp_audio_vis_2.width = mp_audio_vis_2.clientWidth;
+	analyser_music.fftSize = Math.pow(2, Math.floor(Math.log(mp_audio_vis_2.clientWidth)/Math.log(2) + 1)) * 2; //round up to the nearest power of 2
+	mp_buf = new Uint8Array(analyser_music.frequencyBinCount);
+	mp_freq = new Uint8Array(analyser_music.frequencyBinCount);
+	
+	mp_vis_ctx_2.strokeStyle = old_stroke_style;
+	mp_vis_ctx.strokeStyle = old_stroke_style_2;
+	mp_vis_ctx_2.lineWidth = mp_vis_ctx.lineWidth = 2;
+});
+
 
 //measure fps
 var butterviz_frames = 0;
@@ -298,7 +314,6 @@ mp_audio.onloadeddata = function() {
 	mp_hd.style.borderColor = (typeof crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_hd'] == 'string' && mp_use_hd_audio) ? '#0FF' : '#FFF';
 	switch_butter_preset();
 };
-
 
 var mp_clutter = document.getElementById('mp_clutter');
 var mp_fullscreen_state = 0;
