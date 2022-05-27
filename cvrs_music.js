@@ -344,6 +344,15 @@ mp_fullscreen.onclick = function () {
 	mp_fullscreen_state++;
 }
 
+document.body.addEventListener('fullscreenchange', e => {
+	if (document.fullscreenElement == null) {
+		mp_fullscreen_state = 0;
+		mp_clutter.style.display = 'initial';
+		mp_fullscreen.style.borderColor = '#FFF';
+	}
+});
+
+
 /* media session controls */
 navigator.mediaSession.setActionHandler('nexttrack', function() {change_track(true)});
 navigator.mediaSession.setActionHandler('previoustrack', function() {change_track(false)});
