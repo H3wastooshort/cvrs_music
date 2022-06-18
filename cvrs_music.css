@@ -34,7 +34,7 @@ body {
   width: calc(100% - 2px);
 }
 
-#mp_header button {
+#mp_header button, .mp_help_popup button {
   background-color: rgba(0,0,0,0.75);
   border: solid 2px white;
   color: white;
@@ -117,6 +117,42 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* help */
+
+.mp_help_popup {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 9999;
+}
+
+.mp_help_popup div{
+  border: 2px solid white;
+  background-color: rgba(0,0,0,0.75);
+  padding: 3px;
+  font-size: 2em;
+}
+
+.mp_help_popup button {
+  font-size: 1.5em;
+}
+
+@media screen and (max-width: 720px) {
+  .mp_help_popup div{
+    font-size: 2em;
+  }
+
+  .mp_help_popup button {
+    font-size: 1.5em;
+  }
 }
 
 /* other stuff */

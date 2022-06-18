@@ -316,6 +316,7 @@ mp_audio.onloadeddata = function() {
 };
 
 var mp_clutter = document.getElementById('mp_clutter');
+var mp_help = document.getElementById('mp_help');
 var mp_fullscreen_state = 0;
 mp_fullscreen.onclick = function () {
 	if (!document.fullscreenEnabled) {
@@ -352,6 +353,32 @@ document.body.addEventListener('fullscreenchange', e => {
 	}
 });
 
+var mp_help_open = false;
+mp_help.onclick = function() {
+	if (mp_help_open) return;
+	let help_popup_div = document.createElement('div');
+	let help_popup_inner_div = document.createElement('div');
+	let help_popup_close_btn = document.createElement('button');
+	let help_popup_heading = document.createElement('h3');
+	let help_popup_text = document.createElement('p');
+	
+	help_popup_div.className = 'mp_help_popup';
+	
+	help_popup_heading.innerText = 'cvrs music help because design stupid';
+	
+	help_popup_text.innerHTML = 'click on a song to start, if its finished the next song in the album will play.<br>music is paused, seeked, etc with the audio controls at the top. the exact look depends on your browser.<br>down below is a bar of buttons: <ol><li>skip to the next/prev song in album</li><li>audio quality button. changes between OPUS (SD) and FLAC (HD) audio.</li><li>fullscreen button.<br>3 modes: normal, fullscreen, fullscreen with no clutter</li><li>FPS limiter. can do max, half, third, quarter FPS. saves CPU and battery.</li></ol>';
+	
+	help_popup_close_btn.innerText = 'Close Help';
+	help_popup_close_btn.onclick = function() {help_popup_div.remove(); mp_help_open = false;};
+	
+	help_popup_inner_div.appendChild(help_popup_heading);
+	help_popup_inner_div.appendChild(help_popup_text);
+	help_popup_inner_div.appendChild(help_popup_close_btn);
+	help_popup_div.appendChild(help_popup_inner_div);
+	document.body.appendChild(help_popup_div);
+	
+	mp_help_open = true;
+}
 
 /* media session controls */
 navigator.mediaSession.setActionHandler('nexttrack', function() {change_track(true)});
