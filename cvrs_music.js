@@ -1,4 +1,10 @@
+function mp_handle_error(err, comp) {
+	console.error(err);
+	alert("Uh oh! Something went horribly wrong. Maybe we should have hired proper Developers instead of cats...\nSend an E-Mail with screenshot to " + atob(atob("WTNaeWMxOWlkV2R6UUdoaFkydGxjak13TURBdVkyWT0=")) /* vary bad mail scrambleing */ + "\n\nComponent: " + comp + ((typeof err.lineNumber == 'number') ? "\nLine Number: " + err.lineNumber : "") + "\nError Cause: " + err.cause  + "\nError String: " + err.toString());
+}
+
 /* album gallery */
+try {
 var mp_gallery = document.getElementById('mp_gallery');
 crazy_albums.forEach((album, album_idx) => {
 	let album_div = document.createElement('div');
@@ -29,9 +35,15 @@ crazy_albums.forEach((album, album_idx) => {
 	
 	mp_gallery.appendChild(album_div);
 });
+}
+catch (err) {
+	mp_handle_error(err, "Album Gallery");
+}
+
 
 var mp_audio = document.getElementById('mp_audio');
 
+try {
 /* playlist logic */
 var music_credits = document.getElementById('music_credits');
 
@@ -93,8 +105,12 @@ function play_track_index() {
 }
 
 mp_audio.onended = function(){change_track(true);};
+}
+catch (err) {
+	mp_handle_error(err, "Playlist Logic");
+}
 
-
+try {
 /* visualizer */
 var mp_header = document.getElementById('mp_header');
 var mp_audio_vis = document.getElementById('mp_audio_vis');
@@ -106,8 +122,8 @@ mp_audio_vis.height = mp_header.clientHeight;
 var mp_vis_ctx = mp_audio_vis.getContext("2d");
 mp_vis_ctx.strokeStyle = 'whitesmoke';
 
-const audioContext = new AudioContext();
-const audiosource_music = audioContext.createMediaElementSource(mp_audio);
+var audioContext = new AudioContext();
+var audiosource_music = audioContext.createMediaElementSource(mp_audio);
 var analyser_music = audioContext.createAnalyser();
 analyser_music.fftSize = Math.pow(2, Math.floor(Math.log(mp_audio_vis_2.clientWidth)/Math.log(2) + 1)) * 2; //round up to the nearest power of 2
 analyser_music.smoothingTimeConstant = 0.1; //make it react fast
@@ -211,8 +227,12 @@ window.addEventListener('resize', e => { //runs this shitfuck whenever the resol
 	mp_vis_ctx.strokeStyle = old_stroke_style_2;
 	mp_vis_ctx_2.lineWidth = mp_vis_ctx.lineWidth = 2;
 });
+}
+catch (err) {
+	mp_handle_error(err, "Lines Viz");
+}
 
-
+try {
 //measure fps
 var butterviz_frames = 0;
 var butterviz_fps = 0;
@@ -226,9 +246,13 @@ setInterval(function(){
 	butterviz_frames = 0;
 	mp_fps.innerText += '  Butterchurn: ' + butterviz_fps + "FPS";
 }, 1000);
-
+}
+catch (err) {
+	mp_handle_error(err, "FPS Counters");
+}
 
 /* butterchurn */
+try {
 var butter_presets = Object.entries(butterchurnPresetsExtra.getPresets());
 var butter_canvas = document.getElementById('butter_canvas');
 var butter_div = document.getElementById('butter_div');
@@ -263,13 +287,23 @@ function switch_butter_preset() {
 }
 setInterval(switch_butter_preset,30000);
 
+mp_audio.onloadeddata = function() {
+	mp_hd.style.borderColor = (typeof crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_hd'] == 'string' && mp_use_hd_audio) ? '#0FF' : '#FFF';
+	switch_butter_preset();
+};
+
 window.addEventListener('resize', e => {
 	butter_canvas.width = butter_div.clientWidth;
 	butter_canvas.height = butter_div.clientHeight;
 	butterviz.setRendererSize(butter_div.clientWidth, butter_div.clientHeight);
 });
+}
+catch (err) {
+	mp_handle_error(err, "Butterchurn");
+}
 
 
+try {
 /* controls */
 var mp_performance = document.getElementById('mp_performance');
 var mp_next = document.getElementById('mp_next');
@@ -310,10 +344,6 @@ mp_hd.onclick = function(){
 	}
 	
 }
-mp_audio.onloadeddata = function() {
-	mp_hd.style.borderColor = (typeof crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_hd'] == 'string' && mp_use_hd_audio) ? '#0FF' : '#FFF';
-	switch_butter_preset();
-};
 
 var mp_clutter = document.getElementById('mp_clutter');
 var mp_help = document.getElementById('mp_help');
@@ -380,6 +410,7 @@ mp_help.onclick = function() {
 	mp_help_open = true;
 }
 
+try {
 /* media session controls */
 navigator.mediaSession.setActionHandler('nexttrack', function() {change_track(true)});
 navigator.mediaSession.setActionHandler('previoustrack', function() {change_track(false)});
@@ -402,3 +433,9 @@ mp_audio.addEventListener('timeupdate', e => {
 		position: mp_audio.currentTime
 	});
 });
+}
+catch (e) {console.error(e);} //ignore ms errors
+}
+catch (err) {
+	mp_handle_error(err, "Controls");
+}
