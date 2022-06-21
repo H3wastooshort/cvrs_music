@@ -258,7 +258,7 @@ var butter_canvas = document.getElementById('butter_canvas');
 var butter_div = document.getElementById('butter_div');
 butter_canvas.width = butter_div.clientWidth;
 butter_canvas.height = butter_div.clientHeight;
-const butterviz = butterchurn.default.createVisualizer(audioContext, butter_canvas, {
+var butterviz = butterchurn.default.createVisualizer(audioContext, butter_canvas, {
   width: butter_div.clientWidth,
   height: butter_div.clientHeight,
   pixelRatio: window.devicePixelRatio || 1,
