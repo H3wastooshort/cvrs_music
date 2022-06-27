@@ -137,7 +137,8 @@ var crazy_albums = [
 			},
 			{
 				'track_name': 'i <3 dreaming',
-				'track_sd': 'https://files.catbox.moe/bzozjl.mp3',
+				'track_sd': 'https://files.catbox.moe/qlqpdl.opus',
+				'track_hd': 'https://files.catbox.moe/kt333x.flac',
 				'track_url': 'https://soundcloud.com/cvrsed1/i-3-dreaming'
 			},
 			{

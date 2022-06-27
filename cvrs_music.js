@@ -151,6 +151,7 @@ var mp_vis_fps = 0;
 var mp_vis_frames = 0;
 var mp_vis_cycle = 0;
 var mp_vis_div = 0;
+var mp_fft_enable = true;
 function vis_audio() {
 	//fps limit
 	mp_vis_cycle++; //adding before testing is mitigated by the <=
@@ -194,24 +195,25 @@ function vis_audio() {
 	
 	
 	mp_vis_ctx_2.clearRect(0,0,mp_audio_vis_2.width,mp_audio_vis_2.height);
-	mp_vis_ctx_2.beginPath();
-	//mp_vis_ctx_2.strokeStyle = 'whitesmoke';
-	mp_vis_ctx_2.lineWidth = 2;
-	
-	analyser_music.getByteFrequencyData(mp_freq);
-	for (let x = 0; x < mp_audio_vis_2.width; x++) {
-		let y = ((mp_freq[x] / 2) * -1) + mp_audio_vis_2.height;
+	if (mp_fft_enable) {
+		mp_vis_ctx_2.beginPath();
+		//mp_vis_ctx_2.strokeStyle = 'whitesmoke';
+		mp_vis_ctx_2.lineWidth = 2;
 		
-		if (x == 1) {
-				mp_vis_ctx_2.moveTo(x,y);
+		analyser_music.getByteFrequencyData(mp_freq);
+		for (let x = 0; x < mp_audio_vis_2.width; x++) {
+			let y = ((mp_freq[x] / 2) * -1) + mp_audio_vis_2.height;
+		
+			if (x == 1) {
+					mp_vis_ctx_2.moveTo(x,y);
+			}
+			else {
+					mp_vis_ctx_2.lineTo(x,y);
+			}
 		}
-		else {
-				mp_vis_ctx_2.lineTo(x,y);
-		}
+		
+		mp_vis_ctx_2.stroke();
 	}
-	
-	mp_vis_ctx_2.stroke();
-	
 	
 	mp_vis_frames++;
 	requestAnimationFrame(vis_audio);
