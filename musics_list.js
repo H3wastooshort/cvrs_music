@@ -126,7 +126,7 @@ var crazy_albums = [
 	{
 		'album_artist': 'cvrsed',
 		'album_name': 'stuff without an album',
-		'album_cover': 'https://files.catbox.moe/jynylf.png',
+		'album_cover': 'https://files.catbox.moe/fidjk2.png',
 		'album_url': 'https://soundcloud.com/cvrsed1/popular-tracks',
 		'album_tracks': [
 			{
@@ -134,10 +134,53 @@ var crazy_albums = [
 				'track_sd': 'https://files.catbox.moe/jzy7uu.opus',
 				'track_hd': 'https://files.catbox.moe/9g9wak.flac',
 				'track_url': 'https://cvrsed.bandcamp.com/track/i-made-this-to-not-do-my-compsci-work'
-			},			{
+			},
+			{
 				'track_name': 'i <3 dreaming',
 				'track_sd': 'https://files.catbox.moe/bzozjl.mp3',
 				'track_url': 'https://soundcloud.com/cvrsed1/i-3-dreaming'
+			},
+			{
+				'track_name': '１９９１（ ブートレッグ）',
+				'track_sd': 'https://files.catbox.moe/0xkpay.opus',
+				'track_hd': 'https://files.catbox.moe/tdpn2b.flac',
+				'track_url': 'https://cvrsed.bandcamp.com/track/-'
+			},
+			{
+				'track_name': 'N1NJ4_73_64N9',
+				'track_sd': 'https://files.catbox.moe/vbuw7p.opus',
+				'track_hd': 'https://files.catbox.moe/r4hgg3.flac',
+				'track_url': 'https://cvrsed.bandcamp.com/track/n1nj4-73-64n9'
+			},
+			{
+				'track_name': 'P74D4_',
+				'track_sd': 'https://files.catbox.moe/na1r9n.opus',
+				'track_hd': 'https://files.catbox.moe/6dc2u3.flac',
+				'track_url': 'https://cvrsed.bandcamp.com/track/p74d4'
+			},
+			{
+				'track_name': 'funee kitee gif (cvrsed bootleg)',
+				'track_sd': 'https://files.catbox.moe/xlqqm5.opus',
+				'track_hd': 'https://files.catbox.moe/lg9w6e.flac',
+				'track_url': 'https://cvrsed.bandcamp.com/track/funee-kitee-gif-cvrsed-bootleg'
+			},
+			{
+				'track_name': 'ストリートファイターIIIブートレグ',
+				'track_sd': 'https://files.catbox.moe/4z1omm.opus',
+				'track_hd': 'https://files.catbox.moe/8sh1fc.flac',
+				'track_url': 'https://cvrsed.bandcamp.com/track/iii'
+			},
+			{
+				'track_name': 'PON_X3 (CVRSED BOOTLEG)',
+				'track_sd': 'https://files.catbox.moe/mr1g99.opus',
+				'track_hd': 'https://files.catbox.moe/h3vfx9.flac',
+				'track_url': 'https://cvrsed.bandcamp.com/track/pon-x3-cvrsed-bootleg'
+			},
+			{
+				'track_name': 'WHEN THE ##RAVEMAIL',
+				'track_sd': 'https://files.catbox.moe/emoud3.mp3',
+				'track_artist': 'cvrsed@ravemail',
+				'track_url': 'https://soundcloud.com/ravemail/cvrsed-when-the-ravemail'
 			}
 		]
 	}
