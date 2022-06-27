@@ -122,5 +122,23 @@ var crazy_albums = [
 				'track_hd': 'https://files.catbox.moe/09ddt7.flac'
 			}
 		]
+	},
+	{
+		'album_artist': 'cvrsed',
+		'album_name': 'stuff without an album',
+		'album_cover': 'https://files.catbox.moe/jynylf.png',
+		'album_url': 'https://soundcloud.com/cvrsed1/popular-tracks',
+		'album_tracks': [
+			{
+				'track_name': 'i made this to not do my compsci work',
+				'track_sd': 'https://files.catbox.moe/jzy7uu.opus',
+				'track_hd': 'https://files.catbox.moe/9g9wak.flac',
+				'track_url': 'https://cvrsed.bandcamp.com/track/i-made-this-to-not-do-my-compsci-work'
+			},			{
+				'track_name': 'i <3 dreaming',
+				'track_sd': 'https://files.catbox.moe/bzozjl.mp3',
+				'track_url': 'https://soundcloud.com/cvrsed1/i-3-dreaming'
+			}
+		]
 	}
 ]

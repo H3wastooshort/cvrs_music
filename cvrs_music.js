@@ -22,12 +22,22 @@ crazy_albums.forEach((album, album_idx) => {
 	album.album_tracks.forEach((track, track_idx) => {
 		let track_div = document.createElement('li');
 		let track_btn = document.createElement('button');
+		let dl_a = document.createElement('a');
+		let dl_btn = document.createElement('button');
 		
 		track_btn.addEventListener('click', e => {select_track(album_idx,track_idx);});
 		track_btn.innerText = (track.track_artist || album.album_artist) + ' - ' + track.track_name;
 		track_btn.id = `a${album_idx}t${track_idx}`;
 		track_btn.className = 'crazy_button';
 		track_div.appendChild(track_btn);
+		
+		dl_btn.innerText = "💾";
+		//dl_btn.innerText = "DL";
+		dl_btn.className = 'crazy_button';
+		dl_a.href = track.track_hd || track.track_sd;
+		dl_a.setAttribute("download", (track.track_artist || album.album_artist) + ' - ' + track.track_name + (track.track_hd || track.track_sd).substring((track.track_hd || track.track_sd).lastIndexOf('.')));
+		dl_a.appendChild(dl_btn);
+		track_div.appendChild(dl_a);
 		
 		tracklist_div.appendChild(track_div);
 	});
@@ -396,7 +406,7 @@ mp_help.onclick = function() {
 	
 	help_popup_heading.innerText = 'cvrs music help because design stupid';
 	
-	help_popup_text.innerHTML = 'click on a song to start, if its finished the next song in the album will play.<br>music is paused, seeked, etc with the audio controls at the top. the exact look depends on your browser.<br>down below is a bar of buttons: <ol><li>skip to the next/prev song in album</li><li>audio quality button. changes between OPUS (SD) and FLAC (HD) audio.</li><li>fullscreen button.<br>3 modes: normal, fullscreen, fullscreen with no clutter</li><li>FPS limiter. can do max, half, third, quarter FPS. saves CPU and battery.</li></ol>';
+	help_popup_text.innerHTML = 'click on a song to start, if its finished the next song in the album will play.<br>music is paused, seeked, etc with the audio controls at the top. the exact look depends on your browser.<br>down below is a bar of buttons: <ol><li>skip to the next/prev song in album</li><li>audio quality button. changes between OPUS/AAC/MP3 (SD) and FLAC (HD) audio.<br>if it turns cyan, that means HD is supported and playing, <wbr>if its in HD mode but stays white, HD is not sopported for this track (yet)</li><li>fullscreen button.<br>3 modes: normal, fullscreen, fullscreen with no clutter</li><li>FPS limiter. can do max, half, third, quarter FPS. saves CPU and battery.</li></ol>';
 	
 	help_popup_close_btn.innerText = 'Close Help';
 	help_popup_close_btn.onclick = function() {help_popup_div.remove(); mp_help_open = false;};

@@ -81,13 +81,27 @@ body {
   list-style-image: url("catdance.gif");
 }
 
-.crazy_tracklist button{
+.crazy_button{
   font-size: 1.5em;
   background-color: rgba(0,0,0,0.9);
   color: white;
   border: 2px solid white;
   margin: 2px;
+  padding 2px;
   font-family: pixarial, sans-serif;
+  height: 100%;
+}
+
+.crazy_tracklist li {
+  height: calc(1.5em + 4px +4px + 4px);
+}
+
+.crazy_tracklist li a {
+  height: 100%;
+}
+
+a .crazy_button {
+  font-size: 1.18em;
 }
 
 .crazy_album_info {
