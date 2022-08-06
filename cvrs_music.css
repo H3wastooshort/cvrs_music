@@ -169,6 +169,10 @@ a .crazy_button {
   }
 }
 
+.mp_help_popup li {
+  margin: 5px;
+}
+
 /* other stuff */
 
 hr {

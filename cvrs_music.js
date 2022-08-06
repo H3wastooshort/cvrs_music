@@ -408,7 +408,7 @@ mp_help.onclick = function() {
 	
 	help_popup_heading.innerText = 'cvrs music help because design stupid';
 	
-	help_popup_text.innerHTML = 'click on a song to start, if its finished the next song in the album will play.<br>music is paused, seeked, etc with the audio controls at the top. the exact look depends on your browser.<br>down below is a bar of buttons: <ol><li>skip to the next/prev song in album</li><li>audio quality button. changes between OPUS/AAC/MP3 (SD) and FLAC (HD) audio.<br>if it turns cyan, that means HD is supported and playing, <wbr>if its in HD mode but stays white, HD is not sopported for this track (yet)</li><li>fullscreen button.<br>3 modes: normal, fullscreen, fullscreen with no clutter</li><li>FPS limiter. can do max, half, third, quarter FPS. saves CPU and battery.</li></ol>';
+	help_popup_text.innerHTML = 'click on a song to start, if its finished the next song in the album will play.<br>music is paused, seeked, etc with the audio controls at the top. the exact look depends on your browser.<br>down below is a bar of buttons: <ol><li>skip to the next/prev song in album</li><li>audio quality button. changes between OPUS/AAC/MP3 (SD) and FLAC (HD) audio.<br>if it turns cyan, that means HD is supported and playing, <wbr>if its in HD mode but stays white, HD is not sopported for this track (yet)</li><li>fullscreen button. has 3 modes: <wbr>normal, fullscreen, fullscreen with no clutter</li><li>FPS limiter. can do max, half, third, quarter FPS. saves CPU and battery. <wbr>Also prevents crashing on <s>Applenet Explorar</s> iOS Safari.</li></ol>';
 	
 	help_popup_close_btn.innerText = 'Close Help';
 	help_popup_close_btn.onclick = function() {help_popup_div.remove(); mp_help_open = false;};

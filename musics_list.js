@@ -130,6 +130,11 @@ var crazy_albums = [
 		'album_url': 'https://soundcloud.com/cvrsed1/popular-tracks',
 		'album_tracks': [
 			{
+				'track_name': 'bugs r cool',
+				'track_sd': 'https://files.catbox.moe/202sff.mp3',
+				'track_url': 'https://soundcloud.com/cvrsed1/bugs-r-cool'
+			},
+			{
 				'track_name': 'i made this to not do my compsci work',
 				'track_sd': 'https://files.catbox.moe/jzy7uu.opus',
 				'track_hd': 'https://files.catbox.moe/9g9wak.flac',
