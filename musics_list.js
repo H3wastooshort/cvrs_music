@@ -188,6 +188,13 @@ var crazy_albums = [
 				'track_sd': 'https://files.catbox.moe/emoud3.mp3',
 				'track_artist': 'cvrsed@ravemail',
 				'track_url': 'https://soundcloud.com/ravemail/cvrsed-when-the-ravemail'
+			},
+			{
+				'track_name': 'the です！',
+				'track_artist': 'goiioo4',
+				'track_sd': 'https://files.catbox.moe/xslxwu.opus',
+				'track_hd': 'https://files.catbox.moe/vur5dz.flac',
+				'track_url': 'https://cvrsed.bandcamp.com/track/the'
 			}
 		]
 	}
