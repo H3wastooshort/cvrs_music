@@ -24,6 +24,8 @@ crazy_albums.forEach((album, album_idx) => {
 		let track_btn = document.createElement('button');
 		let dl_a = document.createElement('a');
 		let dl_btn = document.createElement('button');
+		let link_a = document.createElement('a');
+		let link_btn = document.createElement('button');
 		
 		track_btn.addEventListener('click', e => {select_track(album_idx,track_idx);});
 		track_btn.innerText = (track.track_artist || album.album_artist) + ' - ' + track.track_name;
@@ -38,6 +40,14 @@ crazy_albums.forEach((album, album_idx) => {
 		dl_a.setAttribute("download", (track.track_artist || album.album_artist) + ' - ' + track.track_name + (track.track_hd || track.track_sd).substring((track.track_hd || track.track_sd).lastIndexOf('.')));
 		dl_a.appendChild(dl_btn);
 		track_div.appendChild(dl_a);
+		
+		link_btn.innerText = "🔗";
+		//dl_btn.innerText = "URL";
+		link_btn.className = 'crazy_button';
+		link_a.href = track.track_url || album.album_url;
+		link_a.target = "_blank";
+		link_a.appendChild(link_btn);
+		track_div.appendChild(link_a);
 		
 		tracklist_div.appendChild(track_div);
 	});
@@ -82,7 +92,7 @@ function change_track(d) {
 }
 
 function play_track_index() {
-	audioContext.resume(); //just fucking resume avery time. cant hurt
+	audioContext.resume(); //just fucking resume every time. cant hurt
 	
 	let track_artist = crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_artist'] || crazy_albums[mp_album_index]['album_artist'];
 	let track_name = crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_name'];
@@ -96,7 +106,7 @@ function play_track_index() {
 		audio_url = crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_hd'];
 	}
 	
-	//yes i know this is inefficien, no i dont care atm
+	//yes i know this is inefficient, no i dont care atm
 	Array.prototype.forEach.call(document.getElementsByClassName('crazy_button'),btn=>{btn.style.borderColor = 'white'}); 
 	document.getElementById(`a${mp_album_index}t${mp_track_index}`).style.borderColor = 'cyan';
 	
@@ -156,7 +166,7 @@ function vis_audio() {
 	//fps limit
 	mp_vis_cycle++; //adding before testing is mitigated by the <=
 	if(mp_vis_cycle <= mp_vis_div) {
-		/* divide framerate to save CPU. most LCDs dont display full framerate well anyways */
+		/* divide framerate to save CPU and battery */
 		requestAnimationFrame(vis_audio);
 		return;
 	}
@@ -222,7 +232,7 @@ vis_audio();
 
 mp_audio.onwaiting = mp_audio.onstalled = function () {mp_vis_ctx.strokeStyle = '#333'; mp_vis_ctx_2.strokeStyle = '#333';}
 mp_audio.onplaying = function () {mp_vis_ctx.strokeStyle = 'whitesmoke'; mp_vis_ctx_2.strokeStyle = 'whitesmoke';}
-mp_audio.onerror = function () {mp_vis_ctx.strokeStyle = 'red';mp_vis_ctx_2.strokeStyle = 'red';}
+mp_audio.onerror = function () {mp_vis_ctx.strokeStyle = 'red';mp_vis_ctx_2.strokeStyle = 'red'; setTimeout(function(){mp_audio.load();mp_audio.play();},2000);}
 
 window.addEventListener('resize', e => { //runs this shitfuck whenever the resolution changes
 	let old_stroke_style = mp_vis_ctx.strokeStyle;
@@ -282,7 +292,7 @@ function buttervizLoop() {
 	//fps limit
 	buttervis_cycle++; //adding before testing is mitigated by the <=
 	if(buttervis_cycle <= mp_vis_div) {
-		/* divide framerate to save CPU. most LCDs dont display full framerate well anyways */
+		/* divide framerate to save CPU and battery */
 		requestAnimationFrame(buttervizLoop);
 		return;
 	}
