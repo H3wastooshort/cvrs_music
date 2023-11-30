@@ -57,7 +57,7 @@ function vis_audio() {
 	
 	let trig = 0;
 	let highs = 0;
-	for (let s = 0; s < mp_buf.length - mp_audio_vis.width - 10; s++) { //try to sync to waveform
+	for (let s = 0; s < Math.min(audioContext.sampleRate/100, mp_buf.length - mp_audio_vis.width - 10); s++) { //try to sync to waveform
 		if (mp_buf[s] > highs) {
 			highs = mp_buf[s];
 			trig = s;
