@@ -209,7 +209,7 @@ if (navigator.mediaDevices) {
 		console.log(err);
   });
 } else {
-		alert("Sorry,your browser does not support microphone input."):
+		alert("Sorry,your browser does not support microphone input.");
 }
 } catch (err) {
 	mp_handle_error(err, "Microphone");
