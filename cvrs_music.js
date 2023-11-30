@@ -17,13 +17,14 @@ var mp_vis_ctx = mp_audio_vis.getContext("2d");
 mp_vis_ctx.strokeStyle = 'whitesmoke';
 
 var audioContext = new AudioContext();
-var audiosource_music = audioContext.createMediaElementSource(mp_audio);
+
+const audioCtx = new AudioContext();
+var audiosource_music;
 var analyser_music = audioContext.createAnalyser();
 analyser_music.fftSize = Math.pow(2, Math.floor(Math.log(mp_audio_vis_2.clientWidth)/Math.log(2) + 1)) * 2; //round up to the nearest power of 2
 analyser_music.smoothingTimeConstant = 0.1; //make it react fast
 var mp_buf = new Uint8Array(analyser_music.frequencyBinCount);
 var mp_freq = new Uint8Array(analyser_music.frequencyBinCount);
-audiosource_music.connect(analyser_music);
 analyser_music.connect(audioContext.destination);
 
 mp_audio_vis_2.width =mp_audio_vis_2.clientWidth;
@@ -160,7 +161,6 @@ var butterviz = butterchurn.default.createVisualizer(audioContext, butter_canvas
   pixelRatio: window.devicePixelRatio || 1,
   textureRatio: 1
 });
-butterviz.connectAudio(audiosource_music);
 var buttervis_cycle = 0;
 function buttervizLoop() {
 	//fps limit
@@ -198,6 +198,21 @@ catch (err) {
 	mp_handle_error(err, "Butterchurn");
 }
 
+try {
+if (navigator.mediaDevices) {
+  navigator.mediaDevices.getUserMedia({"audio": true}).then((stream) => {
+    audiosource_music audioCtx.createMediaStreamSource(stream);
+	audiosource_music.connect(analyser_music);
+butterviz.connectAudio(audiosource_music);
+  }).catch((err) => {
+	  alert("Sorry, can't visualize your music without a working mic...")
+  });
+} else {
+	  alert("Sorry,your browser does not support microphone input.")
+}
+} catch (err) {
+	mp_handle_error(err, "Microphone");
+}
 
 try {
 /* controls */
@@ -284,32 +299,6 @@ mp_help.onclick = function() {
 	mp_help_open = true;
 }
 
-try {
-/* media session controls */
-navigator.mediaSession.setActionHandler('nexttrack', function() {change_track(true)});
-navigator.mediaSession.setActionHandler('previoustrack', function() {change_track(false)});
-navigator.mediaSession.setActionHandler('play', function() {mp_audio.play();});
-navigator.mediaSession.setActionHandler('pause', function() {mp_audio.pause();});
-navigator.mediaSession.setActionHandler('seekto', function(e) {
-	mp_audio.currentTime = e.seekTime;
-});
-
-mp_audio.addEventListener('play', e => {
-	navigator.mediaSession.playbackState = "playing";
-});
-mp_audio.addEventListener('pause', e => {
-	navigator.mediaSession.playbackState = "paused";
-});
-mp_audio.addEventListener('timeupdate', e => {
-	navigator.mediaSession.setPositionState({
-		duration: mp_audio.duration,
-		playbackRate: mp_audio.playbackRate,
-		position: mp_audio.currentTime
-	});
-});
-}
-catch (e) {console.error(e);} //ignore ms errors
-}
 catch (err) {
 	mp_handle_error(err, "Controls");
 }
