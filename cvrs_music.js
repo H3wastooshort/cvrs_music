@@ -3,132 +3,6 @@ function mp_handle_error(err, comp) {
 	alert("Uh oh! Something went horribly wrong. Maybe we should have hired proper Developers instead of cats...\nSend an E-Mail with screenshot to " + atob(atob("WTNaeWMxOWlkV2R6UUdoaFkydGxjak13TURBdVkyWT0=")) /* vary bad mail scrambleing */ + "\n\nComponent: " + comp + ((typeof err.lineNumber == 'number') ? "\nLine Number: " + err.lineNumber : "") + "\nError Cause: " + err.cause  + "\nError String: " + err.toString());
 }
 
-/* album gallery */
-try {
-var mp_gallery = document.getElementById('mp_gallery');
-crazy_albums.forEach((album, album_idx) => {
-	let album_div = document.createElement('div');
-	album_div.className = 'crazy_album';
-	album_div.style.backgroundImage = 'url(' + album.album_cover + ')';
-	
-	let album_info_a = document.createElement('a');
-	album_info_a.className = 'crazy_album_info';
-	album_info_a.innerText = `${album.album_artist} - ${album.album_name}`;
-	album_info_a.href = album.album_url;
-	album_div.appendChild(album_info_a);
-	
-	let tracklist_div = document.createElement('ul');
-	tracklist_div.className = 'crazy_tracklist';
-	album.album_tracks.forEach((track, track_idx) => {
-		let track_div = document.createElement('li');
-		let track_btn = document.createElement('button');
-		let dl_a = document.createElement('a');
-		let dl_btn = document.createElement('button');
-		let link_a = document.createElement('a');
-		let link_btn = document.createElement('button');
-		
-		track_btn.addEventListener('click', e => {select_track(album_idx,track_idx);});
-		track_btn.innerText = (track.track_artist || album.album_artist) + ' - ' + track.track_name;
-		track_btn.id = `a${album_idx}t${track_idx}`;
-		track_btn.className = 'crazy_button';
-		track_div.appendChild(track_btn);
-		
-		dl_btn.innerText = "💾";
-		//dl_btn.innerText = "DL";
-		dl_btn.className = 'crazy_button';
-		dl_a.href = track.track_hd || track.track_sd;
-		dl_a.setAttribute("download", (track.track_artist || album.album_artist) + ' - ' + track.track_name + (track.track_hd || track.track_sd).substring((track.track_hd || track.track_sd).lastIndexOf('.')));
-		dl_a.appendChild(dl_btn);
-		track_div.appendChild(dl_a);
-		
-		link_btn.innerText = "🔗";
-		//dl_btn.innerText = "URL";
-		link_btn.className = 'crazy_button';
-		link_a.href = track.track_url || album.album_url;
-		link_a.target = "_blank";
-		link_a.appendChild(link_btn);
-		track_div.appendChild(link_a);
-		
-		tracklist_div.appendChild(track_div);
-	});
-	album_div.appendChild(tracklist_div);
-	
-	mp_gallery.appendChild(album_div);
-});
-}
-catch (err) {
-	mp_handle_error(err, "Album Gallery");
-}
-
-
-var mp_audio = document.getElementById('mp_audio');
-
-try {
-/* playlist logic */
-var music_credits = document.getElementById('music_credits');
-
-var mp_use_hd_audio = false;
-var mp_track_index = 0;
-var mü_album_index = 0;
-
-function select_track(album,track) {
-	mp_album_index = album;
-	mp_track_index = track;
-	
-	play_track_index();
-}
-
-function change_track(d) {
-	if (d) {
-		mp_track_index++;
-		if (mp_track_index >= crazy_albums[mp_album_index].album_tracks.length) mp_track_index = 0;
-	}
-	else {
-		mp_track_index--;
-		if (mp_track_index < 0) mp_track_index = crazy_albums[mp_album_index].album_tracks.length-1;
-	}
-	
-	play_track_index();
-}
-
-function play_track_index() {
-	audioContext.resume(); //just fucking resume every time. cant hurt
-	
-	let track_artist = crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_artist'] || crazy_albums[mp_album_index]['album_artist'];
-	let track_name = crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_name'];
-	
-	music_credits.innerText = track_artist + ' - ' + track_name;
-	music_credits.href = crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_url'] || crazy_albums[mp_album_index]['album_url'];
-	
-	let audio_url = crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_sd'];
-	
-	if (mp_use_hd_audio && typeof crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_hd'] == 'string') {
-		audio_url = crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_hd'];
-	}
-	
-	//yes i know this is inefficient, no i dont care atm
-	Array.prototype.forEach.call(document.getElementsByClassName('crazy_button'),btn=>{btn.style.borderColor = 'white'}); 
-	document.getElementById(`a${mp_album_index}t${mp_track_index}`).style.borderColor = 'cyan';
-	
-	mp_audio.src=audio_url;
-	mp_audio.load();
-	mp_audio.play();
-	
-	if ("mediaSession" in navigator){
-		navigator.mediaSession.metadata = new MediaMetadata({
-			title: track_name,
-			artist: track_artist,
-			album: crazy_albums[mp_album_index]['album_name'],
-			artwork: [{src: crazy_albums[mp_album_index]['album_cover']}]
-		});
-	}
-}
-
-mp_audio.onended = function(){change_track(true);};
-}
-catch (err) {
-	mp_handle_error(err, "Playlist Logic");
-}
 
 try {
 /* visualizer */
@@ -341,31 +215,9 @@ function mp_cycle_fps() {
 
 mp_performance.onclick = mp_cycle_fps;
 mp_performance.innerText = "max";
-mp_next.onclick = function(){change_track(true)};
-mp_prev.onclick = function(){change_track(false)};
-mp_hd.onclick = function(){
-	if(mp_track_index<0) {
-		alert("No HD version available for eastereggs. I dont want to implement that.");
-		return;
-	}
-	
-	mp_use_hd_audio = !mp_use_hd_audio;
-	mp_hd.innerText = mp_use_hd_audio ? 'HD' : 'SD';
-	
-	let mp_pos_on_sw = mp_audio.currentTime;
-	if (typeof crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_hd'] == 'string') {
-		if (mp_use_hd_audio) {
-				mp_audio.src=crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_hd'];
-		}
-		else {
-				mp_audio.src=crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_sd'];
-		}
-		
-		mp_audio.load();
-		mp_audio.play().then(p => {mp_audio.currentTime = mp_pos_on_sw;});
-	}
-	
-}
+mp_autoswitch.onclick = function(){start_stop()};
+mp_logo.onclick = function(){sel_image()};
+
 
 var mp_clutter = document.getElementById('mp_clutter');
 var mp_help = document.getElementById('mp_help');
