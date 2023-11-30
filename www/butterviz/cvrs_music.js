@@ -105,9 +105,6 @@ function vis_audio() {
 }
 vis_audio();
 
-mp_audio.onwaiting = mp_audio.onstalled = function () {mp_vis_ctx.strokeStyle = '#333'; mp_vis_ctx_2.strokeStyle = '#333';}
-mp_audio.onplaying = function () {mp_vis_ctx.strokeStyle = 'whitesmoke'; mp_vis_ctx_2.strokeStyle = 'whitesmoke';}
-mp_audio.onerror = function () {mp_vis_ctx.strokeStyle = 'red';mp_vis_ctx_2.strokeStyle = 'red'; setTimeout(function(){mp_audio.load();mp_audio.play();},2000);}
 
 window.addEventListener('resize', e => { //runs this shitfuck whenever the resolution changes
 	let old_stroke_style = mp_vis_ctx.strokeStyle;
@@ -194,7 +191,13 @@ catch (err) {
 
 try {
 if (navigator.mediaDevices) {
-	navigator.mediaDevices.getUserMedia({"audio": true}).then((stream) => {
+	navigator.mediaDevices.getUserMedia(
+		audio: {
+			echoCancellation: false,
+			autoGainControl: true,
+			noiseSuppression: false,
+			latency: 0
+    }).then((stream) => {
 	audiosource_music = audioContext.createMediaStreamSource(stream);
 	audiosource_music.connect(analyser_music);
 	butterviz.connectAudio(audiosource_music);
