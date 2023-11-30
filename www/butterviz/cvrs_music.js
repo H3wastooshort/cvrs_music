@@ -25,7 +25,6 @@ analyser_music.fftSize = Math.pow(2, Math.floor(Math.log(mp_audio_vis_2.clientWi
 analyser_music.smoothingTimeConstant = 0.1; //make it react fast
 var mp_buf = new Uint8Array(analyser_music.frequencyBinCount);
 var mp_freq = new Uint8Array(analyser_music.frequencyBinCount);
-analyser_music.connect(audioContext.destination);
 
 mp_audio_vis_2.width =mp_audio_vis_2.clientWidth;
 mp_audio_vis_2.height = 128;
@@ -191,17 +190,18 @@ catch (err) {
 
 try {
 if (navigator.mediaDevices) {
-	navigator.mediaDevices.getUserMedia(
+	navigator.mediaDevices.getUserMedia({
 		audio: {
 			echoCancellation: false,
 			autoGainControl: true,
 			noiseSuppression: false,
 			latency: 0
-    }).then((stream) => {
+    }}).then((stream) => {
 	audiosource_music = audioContext.createMediaStreamSource(stream);
 	audiosource_music.connect(analyser_music);
 	butterviz.connectAudio(audiosource_music);
 	buttervizLoop();
+	//analyser_music.connect(audioContext.destination);
   }).catch((err) => {
 		alert("Sorry, can't visualize your music without a working mic...");
 		console.log(err);
