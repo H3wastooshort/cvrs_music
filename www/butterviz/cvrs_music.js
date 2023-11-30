@@ -177,10 +177,10 @@ function buttervizLoop() {
 	requestAnimationFrame(buttervizLoop);
 }
 
+var preset_switcher_interval = null;
 function switch_butter_preset() {
 	butterviz.loadPreset(butter_presets[Math.floor(Math.random() * butter_presets.length - 0.1)][1], 5);
 }
-setInterval(switch_butter_preset,30000);
 
 mp_audio.onloadeddata = function() {
 	mp_hd.style.borderColor = (typeof crazy_albums[mp_album_index]['album_tracks'][mp_track_index]['track_hd'] == 'string' && mp_use_hd_audio) ? '#0FF' : '#FFF';
@@ -231,7 +231,18 @@ function mp_cycle_fps() {
 
 mp_performance.onclick = mp_cycle_fps;
 mp_performance.innerText = "max";
-mp_autoswitch.onclick = function(){start_stop()};
+mp_autoswitch.onclick = function(){
+	if (preset_switcher_interval != null) {
+		clearInterval(preset_switcher_interval);
+		preset_switcher_interval = null;
+		mp_autoswitch.style.borderColor='#FFF';
+	}
+	else {
+		preset_switcher_interval = setInterval(switch_butter_preset,30000);
+		mp_autoswitch.style.borderColor='#0FF';
+	}
+};
+mp_next_preset.onclick = function(){switch_butter_preset();};
 mp_logo.onclick = function(){sel_image()};
 
 
