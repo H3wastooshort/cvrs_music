@@ -200,15 +200,16 @@ catch (err) {
 
 try {
 if (navigator.mediaDevices) {
-  navigator.mediaDevices.getUserMedia({"audio": true}).then((stream) => {
-    audiosource_music audioCtx.createMediaStreamSource(stream);
+	navigator.mediaDevices.getUserMedia({"audio": true}).then((stream) => {
+	audiosource_music = audioCtx.createMediaStreamSource(stream);
 	audiosource_music.connect(analyser_music);
-butterviz.connectAudio(audiosource_music);
+	butterviz.connectAudio(audiosource_music);
   }).catch((err) => {
-	  alert("Sorry, can't visualize your music without a working mic...")
+		alert("Sorry, can't visualize your music without a working mic...");
+		console.log(err);
   });
 } else {
-	  alert("Sorry,your browser does not support microphone input.")
+		alert("Sorry,your browser does not support microphone input."):
 }
 } catch (err) {
 	mp_handle_error(err, "Microphone");
