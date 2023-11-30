@@ -176,7 +176,6 @@ function buttervizLoop() {
 	butterviz.render();
 	requestAnimationFrame(buttervizLoop);
 }
-buttervizLoop();
 
 function switch_butter_preset() {
 	butterviz.loadPreset(butter_presets[Math.floor(Math.random() * butter_presets.length - 0.1)][1], 5);
@@ -201,9 +200,10 @@ catch (err) {
 try {
 if (navigator.mediaDevices) {
 	navigator.mediaDevices.getUserMedia({"audio": true}).then((stream) => {
-	audiosource_music = audioCtx.createMediaStreamSource(stream);
+	audiosource_music = audioContext.createMediaStreamSource(stream);
 	audiosource_music.connect(analyser_music);
 	butterviz.connectAudio(audiosource_music);
+	buttervizLoop();
   }).catch((err) => {
 		alert("Sorry, can't visualize your music without a working mic...");
 		console.log(err);
@@ -298,6 +298,7 @@ mp_help.onclick = function() {
 	document.body.appendChild(help_popup_div);
 	
 	mp_help_open = true;
+}
 }
 
 catch (err) {
