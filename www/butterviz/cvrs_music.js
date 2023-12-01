@@ -236,7 +236,7 @@ mp_autoswitch.onclick = function(){
 		mp_autoswitch.style.borderColor='#FFF';
 	}
 	else {
-		preset_switcher_interval = setInterval(switch_butter_preset,30000);
+		preset_switcher_interval = setInterval(switch_butter_preset,(prompt("How often should it be switched (s):")||30)*1000);
 		mp_autoswitch.style.borderColor='#0FF';
 	}
 };
