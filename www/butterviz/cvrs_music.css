@@ -34,10 +34,11 @@ body {
   width: calc(100% - 2px);
 }
 
-#mp_header button, .mp_help_popup button {
+#mp_header button, #mp_header input, .mp_help_popup button {
   background-color: rgba(0,0,0,0.75);
   border: solid 2px white;
   color: white;
+  margin: 2px;
 }
 
 #mp_audio_vis_2 {
