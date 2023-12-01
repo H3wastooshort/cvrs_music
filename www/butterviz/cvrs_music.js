@@ -243,8 +243,7 @@ mp_autoswitch.onclick = function(){
 mp_next_preset.onclick = function(){switch_butter_preset();};
 mp_logo.onclick = function(){sel_image()};
 
-
-var mp_clutter = document.getElementById('mp_clutter');
+function cluttervis(v) {Array.prototype.forEach.call(document.getElementsByClassName("mp_clutter"), e => {e.style.display = v;})};
 var mp_help = document.getElementById('mp_help');
 var mp_fullscreen_state = 0;
 mp_fullscreen.onclick = function () {
@@ -257,17 +256,17 @@ mp_fullscreen.onclick = function () {
 			mp_fullscreen_state = 0;
 		case 0:
 			document.body.requestFullscreen();
-			mp_clutter.style.display = 'initial';
+			cluttervis('initial');
 			mp_fullscreen.style.borderColor = '#0FF';
 			break;
 		case 1:
 			document.body.requestFullscreen();
-			mp_clutter.style.display = 'none';
+			cluttervis('none');
 			mp_fullscreen.style.borderColor = 'orange';
 			break;
 		case 2:
 			document.exitFullscreen();
-			mp_clutter.style.display = 'initial';
+			cluttervis('initial');
 			mp_fullscreen.style.borderColor = '#FFF';
 			break;
 	}
@@ -277,7 +276,7 @@ mp_fullscreen.onclick = function () {
 document.body.addEventListener('fullscreenchange', e => {
 	if (document.fullscreenElement == null) {
 		mp_fullscreen_state = 0;
-		mp_clutter.style.display = 'initial';
+		cluttervis('initial');
 		mp_fullscreen.style.borderColor = '#FFF';
 	}
 });
