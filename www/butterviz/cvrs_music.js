@@ -241,7 +241,19 @@ mp_autoswitch.onclick = function(){
 	}
 };
 mp_next_preset.onclick = function(){switch_butter_preset();};
-mp_logo.onclick = function(){sel_image()};
+
+function sel_image(s) {
+	if (FileReader && s.files && s.files.length) {
+		let fr = new FileReader();
+		fr.onload = function () {
+			logo_img.style.display="block";
+			logo_img.src=fr.result;
+		}
+		fr.readAsDataURL(s.files[0]);
+	}
+	else s.style.borderColor='red';
+}
+mp_logo_file.onchange = function(){sel_image(this)};
 
 function cluttervis(v) {Array.prototype.forEach.call(document.getElementsByClassName("mp_clutter"), e => {e.style.display = v;})};
 var mp_help = document.getElementById('mp_help');
